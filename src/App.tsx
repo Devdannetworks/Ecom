@@ -1,25 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import ShoppingCartComponent from "./Main/Routes/ShoppingCartComponent";
+import Home from "./Home";
+import FavComponents from "./Main/Routes/FavComponents";
+import PrimarySearchAppBar from "./Header/Navigation/Navigation";
+import { ThemeProvider, createTheme } from "@mui/material";
+import Shop from "./Main/Routes/Shop";
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#fff",
+    },
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
+        },
+      },
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <PrimarySearchAppBar />
+      </ThemeProvider>
+      <Routes>
+        <Route
+          path="/ShoppingCartComponent"
+          element={<ShoppingCartComponent />}
+        />
+        <Route path="/FavComponents" element={<FavComponents />} />
+        <Route path="/Shop" element={<Shop />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
 
